@@ -12,6 +12,7 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
+        "phpspec/phpspec": "^5.0",
         "symfony/dotenv": "*"
     },
     "config": {
