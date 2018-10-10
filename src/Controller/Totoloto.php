@@ -11,11 +11,12 @@ namespace App\Controller;
 
 
 use App\Services\TotolotoService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class Totoloto
+class Totoloto extends AbstractController
 {
     /**
      * @var TotolotoService
@@ -32,21 +33,15 @@ class Totoloto
     }
 
     /**
-     * @Route("/totoloto")
+     * @Route("/totoloto/{bet}")
      */
-    public function numbers(): Response
+    public function numbers(int $bet = 6): Response
     {
-        $numbers = $this->service->numbers();
-        $list = [];
-        foreach ($numbers as $number) {
-            $list[] = "<li>{$number}</li>";
-        }
-        $allNumber = implode('', $list);
-        return new Response(
-            "<h2>Totoloto</h2>
-                <ul>
-                {$allNumber}
-            </ul>"
+        $numbers = $this->service->numbers($bet);
+
+        return $this->render(
+            'totoloto/numbers.html.twig',
+             compact('numbers', 'bet')
         );
     }
 }
